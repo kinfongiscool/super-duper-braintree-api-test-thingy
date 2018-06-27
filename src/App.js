@@ -22,8 +22,18 @@ class App extends Component {
       method: 'POST',
       body: JSON.stringify({'paymentMethodNonce': nonce}),
       headers: {"Content-Type": "application/json"}
-    }).then( (res) => console.log(res));
-  }
+    })
+    .then( (res) => {
+      console.log(res)
+      if (res.status == 200) {
+        alert('Status code = 200, which means it was probably okay!');
+      } else {
+        alert('Error, status code = ' + res.status + ' statusText = ' + res.statusText);
+      }
+    }).catch(function (err) {
+      console.error(err);
+    })
+};
 
   async componentWillUnmount() {
     if (this.instance) {
