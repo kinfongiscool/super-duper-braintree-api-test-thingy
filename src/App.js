@@ -48,7 +48,8 @@ class App extends Component {
 				<button onClick={ this.buy.bind(this) }>Continue</button>
           <div className="Content">
             <p>This project was created using <a href="https://github.com/braintree/braintree-web-drop-in">Braintree Web Drop In</a> and <a href="https://github.com/facebookincubator/create-react-app">Create React App</a>.</p>
-            <p>This project is a quick integration of the Braintree Web Drop In for my application for the API Specialist position listed on the <a href="https://boards.greenhouse.io/braintree/jobs/1141106?gh_jid=1141106">Braintree careers page</a></p>
+            <p>This project is a quick (and somewhat half-baked) implementation of the Braintree Web Drop In for my application for the API Specialist position listed on the <a href="https://boards.greenhouse.io/braintree/jobs/1141106?gh_jid=1141106">Braintree careers page</a></p>
+            <p>I found the various Braintree resources and documentation to be very helpful and I learned a lot about Braintree tech (and picked up a few new web dev tricks along the way).</p>
           </div>
       </div>
     );
