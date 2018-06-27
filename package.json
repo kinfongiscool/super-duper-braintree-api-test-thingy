@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "braintree": "^2.11.0",
     "braintree-web-drop-in": "^1.11.0",
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
