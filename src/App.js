@@ -22,6 +22,12 @@ class App extends Component {
 		{/* TODO send paymentRequest to server here */}
 	}
 
+  async componentWillUnmount() {
+    if (this.instance) {
+      await this.instance.teardown();
+    }
+  }
+
   render() {
     return (
       <div className="App">
