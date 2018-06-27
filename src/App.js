@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import './App.css';
+import BraintreeWebDropIn from "braintree-web-drop-in";
+
+const SANDBOX_TOKENIZATION_KEY = 'sandbox_39ggph7w_5qgyxghdfd2pzwqx';
 
 class App extends Component {
+
+  _wrapper;
+
+  async componentDidMount() {
+		this.instance = await BraintreeWebDropIn.create({
+			container: ReactDOM.findDOMNode(this._wrapper),
+			...{authorization: SANDBOX_TOKENIZATION_KEY}
+		});
+	}
+
+	async buy() {
+		const { paymentRequest } = await this.instance.requestPaymentMethod();
+		{/* TODO send paymentRequest to server here */}
+	}
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="DropIn" ref={ ref => (this._wrapper = ref) } />
+				<button onClick={ this.buy.bind(this) }>Submit Payment! (Not really) :)</button>
       </div>
     );
   }
