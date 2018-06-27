@@ -1,9 +1,13 @@
 {
   "name": "super-duper-braintree-api-test-thingy",
+  "main": "server.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "braintree": "^2.11.0",
     "braintree-web-drop-in": "^1.11.0",
+    "express": "^4.16.3",
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -15,7 +19,13 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "server": "node server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\""
   },
-  "homepage": "http://kinfongiscool.github.io/super-duper-braintree-api-test-thingy/"
+  "homepage": "http://kinfongiscool.github.io/super-duper-braintree-api-test-thingy/",
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  }
 }
