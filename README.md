@@ -6,7 +6,7 @@
 
 or
 
-`npm start` and `node server`
+`npm start` and `node server` in the root directory.
 
 This project was created using [Braintree Web Drop In](https://github.com/braintree/braintree-web-drop-in) and [Create React App](https://github.com/facebookincubator/create-react-app). I built it with 
 
