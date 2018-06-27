@@ -24,7 +24,7 @@ router.post('/', function(req, res, next) {
     privateKey: 'dea35d036fad307c36e7a1066fc10f2e'
   });
   var newTransaction = gateway.transaction.sale({
-    amount: '12.34',
+    amount: '123.45',
     paymentMethodNonce: req.body.paymentMethodNonce,
     options: {
       submitForSettlement: true
