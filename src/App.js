@@ -55,7 +55,7 @@ class App extends Component {
       if (res.status === 200) {
         alert('Status code = 200, which means it probably worked!');
       } else {
-        alert('Error sending payment, status code = ' + res.status + ' statusText = ' + res.statusText);
+        alert('Error processing payment, status code = ' + res.status + ' statusText = ' + res.statusText);
       }
     }).catch(function (err) {
       console.error(err);
