@@ -1,3 +1,4 @@
+var keys = require('./src/keys.js')
 var express = require('express');
 var braintree = require('braintree');
 var app = express();
@@ -12,9 +13,9 @@ var router = express.Router();
 
 var gateway = braintree.connect({
   environment: braintree.Environment.Sandbox,
-  merchantId: '5qgyxghdfd2pzwqx',
-  publicKey: 'vgv45bddf3xvfdtr',
-  privateKey: 'dea35d036fad307c36e7a1066fc10f2e'
+  merchantId: keys.MERCHANT_KEY,
+  publicKey: keys.PUBLIC_KEY,
+  privateKey: keys.PRIVATE_KEY,
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

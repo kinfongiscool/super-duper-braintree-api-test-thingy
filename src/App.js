@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import './App.css';
 import BraintreeWebDropIn from "braintree-web-drop-in";
 
-const SANDBOX_TOKENIZATION_KEY = 'sandbox_39ggph7w_5qgyxghdfd2pzwqx';
-
 class App extends Component {
 
   _wrapper;
