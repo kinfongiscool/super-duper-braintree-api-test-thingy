@@ -1,4 +1,4 @@
-var keys = require('./src/keys.js')
+var keys = require('./src/keys.js');
 var express = require('express');
 var braintree = require('braintree');
 var app = express();

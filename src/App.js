@@ -39,7 +39,6 @@ class App extends Component {
   }
 
 	async checkOut() {
-
     const { nonce } = await this.instance.requestPaymentMethod();
 		await fetch('/check_out', {
       method: 'POST',
