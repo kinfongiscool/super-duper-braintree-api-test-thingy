@@ -10,31 +10,42 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 var router = express.Router();
 
+var gateway = braintree.connect({
+  environment: braintree.Environment.Sandbox,
+  merchantId: '5qgyxghdfd2pzwqx',
+  publicKey: 'vgv45bddf3xvfdtr',
+  privateKey: 'dea35d036fad307c36e7a1066fc10f2e'
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 router.get('/', function(req, res) {
-    res.send('Node server is running on this port.');
+  res.send('Node server is running on this port.');
 });
 
-router.post('/', function(req, res, next) {
-  var gateway = braintree.connect({
-    environment: braintree.Environment.Sandbox,
-    merchantId: '5qgyxghdfd2pzwqx',
-    publicKey: 'vgv45bddf3xvfdtr',
-    privateKey: 'dea35d036fad307c36e7a1066fc10f2e'
+router.get('/client_token', function(req, res, next) {
+  gateway.clientToken.generate({}, function (err, result) {
+    if (result) {
+      res.send(result);
+    } else {
+      res.status(500).send(error);
+    }
   });
-  var newTransaction = gateway.transaction.sale({
+});
+
+router.post('/check_out', function(req, res, next) {
+  gateway.transaction.sale({
     amount: '123.45',
     paymentMethodNonce: req.body.paymentMethodNonce,
     options: {
       submitForSettlement: true
     }
   }, function(error, result) {
-      if (result) {
-        res.send(result);
-      } else {
-        res.status(500).send(error);
-      }
+    if (result) {
+      res.send(result);
+    } else {
+      res.status(500).send(error);
+    }
   });
 });
 
