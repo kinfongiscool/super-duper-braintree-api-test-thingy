@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
-import BraintreeWebDropIn from 'braintree-web-drop-in';
 import BraintreeWeb from 'braintree-web';
 
 class App extends Component {
@@ -12,7 +10,40 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      submitButtonText: "Enter Card Info",
+      submitButtonDisabled: true,
+    }
+
     this.createHostedFields = this.createHostedFields.bind(this);
+  }
+
+  setSubmitButtonDefault() {
+    this.setState({
+      submitButtonText: 'Enter Card Info',
+      submitButtonDisabled: false
+    });
+  }
+
+  setSubmitButtonValid() {
+    this.setState({
+      submitButtonText: 'Check Out',
+      submitButtonDisabled: false
+    });
+  }
+
+  setSubmitButtonProcessing() {
+    this.setState({
+      submitButtonText: 'Processing...',
+      submitButtonDisabled: true
+    });
+  }
+
+  setSubmitButtonSuccess() {
+    this.setState({
+      submitButtonText: 'Success! Resetting...',
+      submitButtonDisabled: true
+    });
   }
 
   async componentDidMount() {
@@ -63,7 +94,18 @@ class App extends Component {
       }
     }, (err, hostedFieldsInstance) => {
       this.instance = hostedFieldsInstance;
-      this.submitButton.removeAttribute('disabled');
+      hostedFieldsInstance.on('validityChange', (event) => {
+      // Check if all fields are valid, then show submit button
+      var formValid = Object.keys(event.fields).every(function (key) {
+        return event.fields[key].isValid;
+      });
+
+      if (formValid) {
+        this.setSubmitButtonValid();
+      } else {
+        this.setSubmitButtonDefault();
+      }
+    });
       var teardown = (event) => {
         event.preventDefault();
         hostedFieldsInstance.teardown( () => {
@@ -91,14 +133,14 @@ class App extends Component {
       } else {
         alert('Error parsing client token, status code = ' + resData.status + ' statusText = ' + resData.statusText);
       }
-    }).catch( (err) => {
-      console.error(err);
+    }).catch( (error) => {
+      alert('Failed to initialize, unable to get client token, error: ' + error);
     })
   }
 
   async checkOut() {
+    this.setSubmitButtonProcessing();
     this.instance.tokenize().then( async (payload) => {
-      this.submitButton.setAttribute('disabled', 'disabled');
       await fetch('/check_out', {
         method: 'POST',
         body: JSON.stringify({
@@ -110,13 +152,16 @@ class App extends Component {
       }).then( (res) => {
         if (res.status === 200) {
           alert('Status code = 200, which means it probably worked!');
+            this.setSubmitButtonSuccess();
+          this.form.submit();
         } else {
+          this.setSubmitButtonDefault();
           alert('Error processing payment, status code = ' + res.status + ' statusText = ' + res.statusText);
         }
       })
-    }).catch( (err) => {
-      this.submitButton.removeAttribute('disabled');
-      console.error(err);
+    }).catch( (error) => {
+      this.setSubmitButtonDefault();
+      alert('Failed to submit transaction, error: ' + error);
     });
   };
 
@@ -138,7 +183,7 @@ class App extends Component {
             <label className="hosted-field-label" htmlFor="cvv">CVV</label>
             <div className="hosted-field" id="cvv"/>
           </form>
-          <button ref={ ref => (this.submitButton = ref) } onClick={ this.checkOut.bind(this) }>Continue</button>
+          <button ref={ ref => (this.submitButton = ref) } onClick={ this.checkOut.bind(this) } disabled={ this.state.submitButtonDisabled }>{ this.state.submitButtonText }</button>
         </div>
       </div>
     );
