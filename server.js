@@ -36,11 +36,11 @@ router.get('/client_token', function(req, res, next) {
 
 router.post('/check_out', function(req, res, next) {
 /*
-This is not production ready. Purposely written minimally for the codechallenge.
+This is not production ready. Purposely written minimally for the code exercise.
 I created a customer via the Control Panel with customerId '12345' and this
 request _always_ adds a new PaymentMethod before making a transaction.
-Would ideally be smarter and attempt to find/update a customer or create a new
-customer and move into card verification from there.
+Would ideally be smarter by attempting first to find/update a customer. If no
+customer found, create a new customer then verify the card from there.
 */
   gateway.paymentMethod.create({
     customerId: constants.CUSTOMER_ID,

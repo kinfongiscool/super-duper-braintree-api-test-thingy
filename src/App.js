@@ -94,18 +94,18 @@ class App extends Component {
       }
     }, (err, hostedFieldsInstance) => {
       this.instance = hostedFieldsInstance;
+
       hostedFieldsInstance.on('validityChange', (event) => {
-      // Check if all fields are valid, then show submit button
-      var formValid = Object.keys(event.fields).every(function (key) {
-        return event.fields[key].isValid;
+        var formValid = Object.keys(event.fields).every(function (key) {
+          return event.fields[key].isValid;
+        });
+        if (formValid) {
+          this.setSubmitButtonValid();
+        } else {
+          this.setSubmitButtonDefault();
+        }
       });
 
-      if (formValid) {
-        this.setSubmitButtonValid();
-      } else {
-        this.setSubmitButtonDefault();
-      }
-    });
       var teardown = (event) => {
         event.preventDefault();
         hostedFieldsInstance.teardown( () => {
@@ -152,7 +152,7 @@ class App extends Component {
       }).then( (res) => {
         if (res.status === 200) {
           alert('Status code = 200, which means it probably worked!');
-            this.setSubmitButtonSuccess();
+          this.setSubmitButtonSuccess();
           this.form.submit();
         } else {
           this.setSubmitButtonDefault();
