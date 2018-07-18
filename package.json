@@ -22,7 +22,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "server": "node server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\""
+    "start-all": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\""
   },
   "homepage": "http://kinfongiscool.github.io/super-duper-braintree-api-test-thingy/",
   "proxy": "http://localhost:5000",
