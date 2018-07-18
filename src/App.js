@@ -118,8 +118,8 @@ class App extends Component {
     });
   }
 
-  async getClientToken() {
-    await fetch('/client_token', {
+  getClientToken() {
+    fetch('/client_token', {
       method: 'GET'
     }).then( (res) => {
       if (res.status === 200) {
@@ -138,10 +138,10 @@ class App extends Component {
     })
   }
 
-  async checkOut() {
+  checkOut() {
     this.setSubmitButtonProcessing();
-    this.instance.tokenize().then( async (payload) => {
-      await fetch('/check_out', {
+    this.instance.tokenize().then( (payload) => {
+      fetch('/check_out', {
         method: 'POST',
         body: JSON.stringify({
           'paymentMethodNonce': payload.nonce
