@@ -2,7 +2,7 @@
 
 `npm install` to install dependencies, then run:
 
-`npm run start-all` from the root directory (added for convenience. Simply starts React app and Node server at the same time.)
+`npm run start-all` from the root directory (added for convenience. Simply starts React app and Node server at the same time).
 
 or
 
