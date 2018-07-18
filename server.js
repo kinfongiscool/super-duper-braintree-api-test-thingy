@@ -1,3 +1,4 @@
+require('dotenv').load();
 var constants = require('./src/constants.js');
 var express = require('express');
 var braintree = require('braintree');
@@ -13,9 +14,9 @@ var router = express.Router();
 
 var gateway = braintree.connect({
   environment: braintree.Environment.Sandbox,
-  merchantId: constants.MERCHANT_KEY,
-  publicKey: constants.PUBLIC_KEY,
-  privateKey: constants.PRIVATE_KEY,
+  merchantId: process.env.REACT_APP_MERCHANT_KEY,
+  publicKey: process.env.REACT_APP_PUBLIC_KEY,
+  privateKey: process.env.REACT_APP_PRIVATE_KEY,
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -37,10 +38,10 @@ router.get('/client_token', (req, res, next) => {
 router.post('/check_out', (req, res, next) => {
 /*
 This is not production ready. Purposely written minimally for the code exercise.
-I created a customer via the Control Panel with customerId '12345' and this
-request _always_ adds a new PaymentMethod before making a transaction.
-Would ideally be smarter by attempting first to find/update a customer. If no
-customer found, create a new customer then verify the card from there.
+A customer with customerId '12345' exists in my vault. This request _always_
+adds a new PaymentMethod before making a transaction. Would ideally be smarter
+by attempting first to find/update a customer. If no customer found, create a
+new customer then verify the card from there.
 */
   gateway.paymentMethod.create({
     customerId: constants.CUSTOMER_ID,
