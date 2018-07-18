@@ -20,12 +20,12 @@ var gateway = braintree.connect({
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   res.send('Node server is running on this port.');
 });
 
-router.get('/client_token', function(req, res, next) {
-  gateway.clientToken.generate({}, function (err, result) {
+router.get('/client_token', (req, res, next) => {
+  gateway.clientToken.generate({}, (err, result) => {
     if (result) {
       res.send(result);
     } else {
@@ -34,7 +34,7 @@ router.get('/client_token', function(req, res, next) {
   });
 });
 
-router.post('/check_out', function(req, res, next) {
+router.post('/check_out', (req, res, next) => {
 /*
 This is not production ready. Purposely written minimally for the code exercise.
 I created a customer via the Control Panel with customerId '12345' and this
@@ -48,7 +48,7 @@ customer found, create a new customer then verify the card from there.
     options: {
       verifyCard: true,
     }
-  }, function(error, result) {
+  }, (error, result) => {
     if (result) {
       gateway.transaction.sale({
         amount: constants.TRANSACTION_AMOUNT,
@@ -56,7 +56,7 @@ customer found, create a new customer then verify the card from there.
         options: {
           submitForSettlement: true,
         }
-      }, function(error, result) {
+      }, (error, result) => {
         if (result) {
           res.send(result);
         } else {
