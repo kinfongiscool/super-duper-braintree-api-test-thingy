@@ -1,5 +1,7 @@
 # super-duper-braintree-api-test-thingy
 
+Enter your API keys into the .env file or directly into server.js.
+
 `npm install` to install dependencies, then run:
 
 `npm run start-all` from the root directory (added for convenience. Simply starts React app and Node server at the same time).
