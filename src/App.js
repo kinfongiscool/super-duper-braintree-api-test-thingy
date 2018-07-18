@@ -125,13 +125,13 @@ class App extends Component {
       if (res.status === 200) {
         return res.json();
       } else {
-        alert('Error getting client token, status code = ' + res.status + ' statusText = ' + res.statusText);
+        alert('Error getting client token, status code = ' + res.status);
       }
     }).then( (resData) => {
       if (resData.clientToken) {
         this.setBraintree(resData.clientToken);
       } else {
-        alert('Error parsing client token, status code = ' + resData.status + ' statusText = ' + resData.statusText);
+        alert('Error parsing client token.');
       }
     }).catch( (error) => {
       alert('Failed to initialize, unable to get client token, error: ' + error);
@@ -156,7 +156,7 @@ class App extends Component {
           this.form.submit();
         } else {
           this.setSubmitButtonDefault();
-          alert('Error processing payment, status code = ' + res.status + ' statusText = ' + res.statusText);
+          alert('Error processing payment, status code = ' + res.status);
         }
       })
     }).catch( (error) => {
